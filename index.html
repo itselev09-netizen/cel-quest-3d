@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Cel-Quest 3D</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #111;
+            font-family: sans-serif;
+            color: #fff;
+        }
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        #ui-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui-overlay">
+        <h2>Cel-Quest 3D</h2>
+        <p>Загрузка мира...</p>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        // Базовый скрипт инициализации игры и проверки папки assets
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Простая отрисовка заглушки до загрузки движка, чтобы проверить рендер
+        ctx.fillStyle = "#1a1a2e";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#e94560";
+        ctx.font = "24px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Cel-Quest 3D запущен!", canvas.width / 2, canvas.height / 2 - 20);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "16px sans-serif";
+        ctx.fillText("Проверяем текстуры в папке assets...", canvas.width / 2, canvas.height / 2 + 20);
+
+        // Пример загрузки атласа из правильной папки assets
+        const heroAtlas = new Image();
+        heroAtlas.src = 'assets/hero_atlas.png';
+        heroAtlas.onload = () => {
+            console.log("Атлас героя успешно загружен из assets!");
+        };
+    </script>
+</body>
+</html>
